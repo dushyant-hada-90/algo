@@ -118,154 +118,177 @@ export default function PrefixSumVisualizer() {
   const algoFinished = steps.length > 0 && currentStep === steps.length - 1;
 
   return (
-    <div className="p-6 max-w-5xl mx-auto space-y-6">
-      <Card className="p-4">
-        <h2 className="text-xl font-bold mb-3">Prefix Sum Subarray Visualizer</h2>
-        <div className="flex gap-4 mb-4">
-          <input
-            className="border p-2 rounded w-1/2"
-            placeholder="Enter array e.g. 1,-1,2"
-            defaultValue={defaultArray.join(",")}
-            onBlur={(e) => {
-              const raw = (e.target as HTMLInputElement).value.trim();
-              if (!raw) return;
-              const v = raw.split(",").map((s) => Number(s.trim()));
-              if (v.length > 0 && v.every((x) => !isNaN(x))) setArr(v);
-            }}
-          />
-          <input
-            className="border p-2 rounded w-24"
-            placeholder="k"
-            value={k}
-            onChange={(e) => {
-              const val = Number((e.target as HTMLInputElement).value);
-              if (!isNaN(val)) setK(val);
-            }}
-          />
-        </div>
+    // ...existing code...
+    // top-level container: remove vertical-only spacing and let the inner grid handle spacing
+    <div className="p-6 max-w-5xl mx-auto" style={{ overflow: "hidden" }}>
+      {/*
+				Add a responsive grid wrapper:
+				- auto-fit + minmax makes cards stack on small screens and fill rows on lg
+				- gap equivalent to previous spacing
+			*/}
+      <div
+        className="w-full"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+          gap: "1.5rem",
+        }}
+      >
+        <Card className="p-4">
+          <h2 className="text-xl font-bold mb-3">Prefix Sum Subarray Visualizer</h2>
 
-        <div className="flex gap-4">
-          <Button className="hover:cursor-pointer" onClick={() => setCurrentStep((s) => Math.max(0, s - 1))}>
-            Step Back
-          </Button>
-          <Button className="hover:cursor-pointer" onClick={() => setCurrentStep((s) => Math.min(steps.length - 1, s + 1))}>
-            Step Forward
-          </Button>
-          <Button className="hover:cursor-pointer" onClick={() => setIsPlaying((p) => !p)}>
-            {isPlaying ? "Pause" : "Play"}
-          </Button>
-          <Button
-            className="hover:cursor-pointer"
-            onClick={() => {
-              setIsPlaying(false);
-              setCurrentStep(0);
-            }}
-          >
-            Reset
-          </Button>
-        </div>
-      </Card>
-
-      <Card>
-        <CardContent>
-          <h3 className="text-lg font-semibold">Array</h3>
-          <div className="flex gap-4 mt-4">
-            {arr.map((num, idx) => (
-              <motion.div
-                key={idx}
-                layout
-                animate={{ scale: step?.index === idx ? 1.12 : 1 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className={`p-4 rounded-xl shadow text-center w-14 ${step?.index === idx ? "bg-blue-200" : "bg-gray-100"
-                  }`}
-              >
-                {num}
-              </motion.div>
-            ))}
+          {/* make inputs stack on small screens */}
+          <div className="flex flex-col sm:flex-row gap-4 mb-4">
+            <input
+              className="border p-2 rounded w-full sm:w-1/2"
+              placeholder="Enter array e.g. 1,-1,2"
+              defaultValue={defaultArray.join(",")}
+              onBlur={(e) => {
+                const raw = (e.target as HTMLInputElement).value.trim();
+                if (!raw) return;
+                const v = raw.split(",").map((s) => Number(s.trim()));
+                if (v.length > 0 && v.every((x) => !isNaN(x))) setArr(v);
+              }}
+            />
+            <input
+              className="border p-2 rounded w-full sm:w-24"
+              placeholder="k"
+              value={k}
+              onChange={(e) => {
+                const val = Number((e.target as HTMLInputElement).value);
+                if (!isNaN(val)) setK(val);
+              }}
+            />
           </div>
-        </CardContent>
-      </Card>
 
-      <Card>
-        <CardContent>
-          <h3 className="text-lg font-semibold mb-3">Explanation</h3>
-          {step ? (
-            <div className="p-4 bg-gray-50 rounded-xl border">
-              {step.type === "update-prefix" && (
-                <p>
-                  Updating prefix sum at index <b>{step.index}</b>: from {step.oldPrefix} to {step.newPrefix}
-                </p>
-              )}
+          {/* make controls wrap on small screens */}
+          <div className="flex flex-wrap gap-4">
+            <Button className="hover:cursor-pointer" onClick={() => setCurrentStep((s) => Math.max(0, s - 1))}>
+              Step Back
+            </Button>
+            <Button
+              className="hover:cursor-pointer"
+              onClick={() => setCurrentStep((s) => Math.min(steps.length - 1, s + 1))}
+            >
+              Step Forward
+            </Button>
+            <Button className="hover:cursor-pointer" onClick={() => setIsPlaying((p) => !p)}>
+              {isPlaying ? "Pause" : "Play"}
+            </Button>
+            <Button
+              className="hover:cursor-pointer"
+              onClick={() => {
+                setIsPlaying(false);
+                setCurrentStep(0);
+              }}
+            >
+              Reset
+            </Button>
+          </div>
+        </Card>
 
-              {step.type === "match" && (
-                <p>
-                  Match found: subarray <b>{step.start}</b> to <b>{step.end}</b> sums to k
-                </p>
-              )}
-
-              {step.type === "hash-insert" && (
-                <p>
-                  Storing prefix {step.prefix} in hashmap at index {step.index}
-                </p>
-              )}
-            </div>
-          ) : (
-            <p>No step loaded.</p>
-          )}
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardContent>
-          <h3 className="text-lg font-semibold">Prefix Hashmap</h3>
-          <div className="grid grid-cols-3 gap-3 mt-4">
-            {step &&
-              (Object.entries(step.hashmap) as [string, number][]).map(([key, val]) => (
+        <Card>
+          <CardContent>
+            <h3 className="text-lg font-semibold">Array</h3>
+            {/* allow array items to wrap and avoid fixed widths so nothing overflows on small screens */}
+            <div className="flex flex-wrap gap-4 mt-4">
+              {arr.map((num, idx) => (
                 <motion.div
-                  key={key}
+                  key={idx}
                   layout
-                  transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                  className="p-3 rounded-xl bg-yellow-100 shadow text-center"
+                  animate={{ scale: step?.index === idx ? 1.12 : 1 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className={`p-4 rounded-xl shadow text-center min-w-0 ${step?.index === idx ? "bg-blue-200" : "bg-gray-100"
+                    }`}
                 >
-                  <p>prefix = {key}</p>
-                  <p>index = {val}</p>
+                  {num}
                 </motion.div>
               ))}
-          </div>
-        </CardContent>
-      </Card>
-
-
-      {/* Prefix + Answer Visualization */}
-      <Card>
-        <CardContent>
-          <h3 className="text-lg font-semibold mb-2">Live Values</h3>
-          <div className="flex gap-6 p-4 bg-gray-50 rounded-xl border">
-            <div>
-              <p className="text-sm text-gray-600">Prefix Sum</p>
-              <motion.p layout className="text-2xl font-bold">
-                {prefixValue !== null ? prefixValue : "–"}
-              </motion.p>
             </div>
-            <div>
-              <p className="text-sm text-gray-600">Longest Length Found</p>
-              <motion.p layout className="text-2xl font-bold">
-                {answerSoFar}
-              </motion.p>
-            </div>
-          </div>
+          </CardContent>
+        </Card>
 
-          {algoFinished && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="mt-6 p-4 bg-green-100 border text-green-800 rounded-xl text-center"
-            >
-              ✔ Algorithm completed gracefully. Final longest subarray length = <b>{answerSoFar}</b>.
-            </motion.div>
-          )}
-        </CardContent>
-      </Card>
+        <Card>
+          <CardContent>
+            <h3 className="text-lg font-semibold mb-3">Explanation</h3>
+            {step ? (
+              <div className="p-4 bg-gray-50 rounded-xl border">
+                {step.type === "update-prefix" && (
+                  <p>
+                    Updating prefix sum at index <b>{step.index}</b>: from {step.oldPrefix} to {step.newPrefix}
+                  </p>
+                )}
+
+                {step.type === "match" && (
+                  <p>
+                    Match found: subarray <b>{step.start}</b> to <b>{step.end}</b> sums to k
+                  </p>
+                )}
+
+                {step.type === "hash-insert" && (
+                  <p>
+                    Storing prefix {step.prefix} in hashmap at index {step.index}
+                  </p>
+                )}
+              </div>
+            ) : (
+              <p>No step loaded.</p>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent>
+            <h3 className="text-lg font-semibold">Prefix Hashmap</h3>
+            {/* responsive hashmap grid: 1 col on xs, 2 on sm, 3 on md+ */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-4">
+              {step &&
+                (Object.entries(step.hashmap) as [string, number][]).map(([key, val]) => (
+                  <motion.div
+                    key={key}
+                    layout
+                    transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                    className="p-3 rounded-xl bg-yellow-100 shadow text-center"
+                  >
+                    <p>prefix = {key}</p>
+                    <p>index = {val}</p>
+                  </motion.div>
+                ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent>
+            <h3 className="text-lg font-semibold mb-2">Live Values</h3>
+            {/* stack live-values on small screens */}
+            <div className="flex flex-col sm:flex-row gap-6 p-4 bg-gray-50 rounded-xl border">
+              <div>
+                <p className="text-sm text-gray-600">Prefix Sum</p>
+                <motion.p layout className="text-2xl font-bold">
+                  {prefixValue !== null ? prefixValue : "–"}
+                </motion.p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600">Longest Length Found</p>
+                <motion.p layout className="text-2xl font-bold">
+                  {answerSoFar}
+                </motion.p>
+              </div>
+            </div>
+
+            {algoFinished && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="mt-6 p-4 bg-green-100 border text-green-800 rounded-xl text-center"
+              >
+                ✔ Algorithm completed gracefully. Final longest subarray length = <b>{answerSoFar}</b>.
+              </motion.div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
