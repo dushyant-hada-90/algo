@@ -11,8 +11,18 @@ export default function App() {
             to="/prefix-sum"
             className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
           >
-            Prefix Sum Visualizer
+            Prefix Sum Visualizer 
           </Link>
+          <span className="mx-[10px]">(Find largest subarray with sum == k)</span>
+        </li>
+        <li>
+          <Link
+            to="/dnf"
+            className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+          >
+            Dutch National Flag Visualizer  
+          </Link>
+          <span className="mx-[10px]">(Sort an array of 0s,1s,2s)</span>
         </li>
         {/* Add more algorithm links here in the future */}
       </ul>
