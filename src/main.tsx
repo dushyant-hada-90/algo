@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import PrefixSumVisualizer from "./pages/prefix-sum"; // <-- your visualizer file
 import DnfStep from "./pages/dnf"
+import TrappedWaterVisualizer from "./pages/trapped-water";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -13,6 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/" element={<App />} />
         <Route path="/prefix-sum" element={<PrefixSumVisualizer />} />
         <Route path="/dnf" element={<DnfStep />} />
+        <Route path="/trapped-water" element={<TrappedWaterVisualizer />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

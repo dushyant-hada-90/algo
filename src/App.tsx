@@ -11,7 +11,7 @@ export default function App() {
             to="/prefix-sum"
             className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
           >
-            Prefix Sum Visualizer 
+            Prefix Sum
           </Link>
           <span className="mx-[10px]">(Find largest subarray with sum == k)</span>
         </li>
@@ -20,9 +20,18 @@ export default function App() {
             to="/dnf"
             className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
           >
-            Dutch National Flag Visualizer  
+            Dutch National Flag
           </Link>
           <span className="mx-[10px]">(Sort an array of 0s,1s,2s)</span>
+        </li>
+        <li>
+          <Link
+            to="/trapped-water"
+            className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+          >
+           Trapped Water 1 
+          </Link>
+          <a href="https://leetcode.com/problems/trapping-rain-water/description/)" target="_blank" className="mx-[10px] text-[blue]">(Leetcode)</a>
         </li>
         {/* Add more algorithm links here in the future */}
       </ul>
