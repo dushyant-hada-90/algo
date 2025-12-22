@@ -6,6 +6,7 @@ import App from "./App";
 import PrefixSumVisualizer from "./pages/prefix-sum"; // <-- your visualizer file
 import DnfStep from "./pages/dnf"
 import TrappedWaterVisualizer from "./pages/trapped-water";
+import MeetInTheMiddleVisualizer from "./pages/meet-in-the-middle";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -15,6 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/prefix-sum" element={<PrefixSumVisualizer />} />
         <Route path="/dnf" element={<DnfStep />} />
         <Route path="/trapped-water" element={<TrappedWaterVisualizer />} />
+        <Route path="/meet-in-the-middle" element={<MeetInTheMiddleVisualizer />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
