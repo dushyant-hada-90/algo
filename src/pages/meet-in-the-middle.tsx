@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import  { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Slider } from '@/components/ui/slider';
-import { Play, Pause, SkipBack, SkipForward, RotateCcw, Split, ArrowDown, Search } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Play, Pause, SkipBack, SkipForward, RotateCcw,ArrowDown, Search } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { toast } from "sonner"; // 1. Import toast
 import { Toaster } from "@/components/ui/sonner";
 // --- Types ---
