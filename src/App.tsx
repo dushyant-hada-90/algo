@@ -42,6 +42,15 @@ export default function App() {
           </Link>
           <a href="https://leetcode.com/problems/partition-array-into-two-arrays-to-minimize-sum-difference/description/)" target="_blank" className="mx-[10px] text-[blue]">(Leetcode)</a>
         </li>
+        <li>
+          <Link
+            to="/count-negatives"
+            className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+          >
+           Count negatives in sorted grid
+          </Link>
+          <a href="https://leetcode.com/problems/partition-array-into-two-arrays-to-minimize-sum-difference/description/)" target="_blank" className="mx-[10px] text-[blue]">(Leetcode)</a>
+        </li>
         {/* Add more algorithm links here in the future */}
       </ul>
     </div>
