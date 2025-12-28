@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useMemo, useRef } from 'react';
+import { motion} from 'framer-motion';
 import type { Variants } from 'framer-motion';
-import { Play, Pause, SkipBack, SkipForward, RotateCcw, CheckCircle2, AlertCircle, Info } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, RotateCcw, AlertCircle, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';

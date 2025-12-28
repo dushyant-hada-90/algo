@@ -49,7 +49,7 @@ export default function App() {
           >
            Count negatives in sorted grid
           </Link>
-          <a href="https://leetcode.com/problems/partition-array-into-two-arrays-to-minimize-sum-difference/description/)" target="_blank" className="mx-[10px] text-[blue]">(Leetcode)</a>
+          <a href="https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix/description/)" target="_blank" className="mx-[10px] text-[blue]">(Leetcode)</a>
         </li>
         {/* Add more algorithm links here in the future */}
       </ul>
