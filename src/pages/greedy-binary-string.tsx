@@ -429,7 +429,7 @@ export default function GreedyStringVisualizer() {
                
                {/* Visual representation of strings s and t */}
                <div className="flex gap-3 mt-6">
-                 {Array.from(s).map((char, idx) => {
+                 {Array.from(s).map((_, idx) => {
                    const mismatch = currentStep?.mismatches.find((m) => m.index === idx);
                    const showNode = mismatch && mismatch.status === 'string';
                    const isGone = mismatch && mismatch.status !== 'string';
